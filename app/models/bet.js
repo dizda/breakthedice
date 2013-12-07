@@ -10,7 +10,6 @@ var mongoose = require('mongoose'),
  * Article Schema
  */
 var BetSchema = new Schema({
-
     rangeMin:    Number,
     rangeMax:    Number,
     bet:         Number,
@@ -31,12 +30,6 @@ var BetSchema = new Schema({
     }
 });
 
-/**
- * Validations
- */
-BetSchema.path('title').validate(function(title) {
-    return title.length;
-}, 'Title cannot be blank');
 
 /**
  * Statics

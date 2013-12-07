@@ -50,9 +50,11 @@ require('./config/express')(app, passport, db);
 require('./config/routes')(app, passport, auth);
 
 //Start the app by listening on <port>
-var port = process.env.PORT || config.port;
-app.listen(port);
+var port   = process.env.PORT || config.port;
+var server = app.listen(port);
 console.log('Express app started on port ' + port);
+
+require('./config/socket.io')(server, config);
 
 //Initializing logger
 logger.init(app, passport, mongoose);
