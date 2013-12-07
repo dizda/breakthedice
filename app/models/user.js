@@ -1,10 +1,10 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    crypto = require('crypto'),
-    _ = require('underscore'),
+var mongoose  = require('mongoose'),
+    Schema    = mongoose.Schema,
+    crypto    = require('crypto'),
+    _         = require('underscore'),
     authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 
@@ -12,8 +12,10 @@ var mongoose = require('mongoose'),
  * User Schema
  */
 var UserSchema = new Schema({
-    name: String,
-    email: String,
+    email: {
+        type: String,
+        unique: true
+    },
     username: {
         type: String,
         unique: true
@@ -24,7 +26,31 @@ var UserSchema = new Schema({
     facebook: {},
     twitter: {},
     github: {},
-    google: {}
+    google: {},
+
+    balance: {
+        type: Number,
+        default: 0
+    },
+    fees: {
+        type: Number,
+        default: 0
+    },
+    clientSeed: String,
+    serverSeed: String,
+
+    depositHistory: [],
+    withdrawHistory: [],
+    betHistory: [],
+
+    godfather: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+
+    status: Number,
+    createdAt: Date,
+    updatedAt: { type: Date, default: Date.now }
 });
 
 /**
@@ -46,11 +72,11 @@ var validatePresenceOf = function(value) {
 };
 
 // the below 4 validations only apply if you are signing up traditionally
-UserSchema.path('name').validate(function(name) {
-    // if you are authenticating by any of the oauth strategies, don't validate
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return name.length;
-}, 'Name cannot be blank');
+//UserSchema.path('name').validate(function(name) {
+//    // if you are authenticating by any of the oauth strategies, don't validate
+//    if (authTypes.indexOf(this.provider) !== -1) return true;
+//    return name.length;
+//}, 'Name cannot be blank');
 
 UserSchema.path('email').validate(function(email) {
     // if you are authenticating by any of the oauth strategies, don't validate
