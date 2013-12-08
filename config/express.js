@@ -2,12 +2,11 @@
  * Module dependencies.
  */
 var express = require('express'),
-    mongoStore = require('connect-mongo')(express),
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
     config = require('./config');
 
-module.exports = function(app, passport, db) {
+module.exports = function(app, passport, store) {
     app.set('showStackError', true);    
     
     //Prettify HTML
@@ -49,10 +48,7 @@ module.exports = function(app, passport, db) {
         //express/mongo session storage
         app.use(express.session({
             secret: 'MEAN',
-            store: new mongoStore({
-                db: db.connection.db,
-                collection: 'sessions'
-            })
+            store:  store
         }));
 
         //connect flash for flash messages

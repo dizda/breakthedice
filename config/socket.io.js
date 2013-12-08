@@ -3,20 +3,14 @@
  */
 
 // Good read http://stackoverflow.com/questions/8749907/what-is-a-good-session-store-for-a-single-host-node-js-production-app
-var express    = require('express'),
-    mongoStore = require('connect-mongo')(express);
+var express    = require('express');
 
-module.exports = function(server, config, db){
+module.exports = function(server, config, store){
 
-    var parseCookie = require('express').cookieParser('MEAN');
+    var parseCookie = express.cookieParser('MEAN');
     var io = require('socket.io').listen(server);
 
     // Link sessions with Express, to know which user is
-    var store = new mongoStore({
-        db: db.connection.db,
-        collection: 'sessions'
-    });
-
     io.configure(function() {
         io.set('authorization', function(handshake, accept) {
             if (handshake.headers.cookie) {
@@ -47,17 +41,16 @@ module.exports = function(server, config, db){
     });
 
 
-
     io.of('/api').on('connection', function(socket){
 
-        console.log(socket.handshake.sessionID);
+        // Mongo ObjectId
         var user = null;
 
         if (socket.handshake.session.passport && socket.handshake.session.passport.user)
         {
             user = socket.handshake.session.passport.user;
         }
-        
+
 
         //Requests
         socket.on('chat:send', function(data){
@@ -67,7 +60,6 @@ module.exports = function(server, config, db){
             socket.broadcast.emit('chat:receive', data);
 
         });
-        //responses
 
     });
 

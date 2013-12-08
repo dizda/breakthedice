@@ -4,7 +4,8 @@
 var express = require('express'),
     fs = require('fs'),
     passport = require('passport'),
-    logger = require('mean-logger');
+    logger = require('mean-logger'),
+    mongoStore = require('connect-mongo')(express);
 
 /**
  * Main application entry file.
@@ -41,10 +42,15 @@ walk(models_path);
 //bootstrap passport config
 require('./config/passport')(passport);
 
+var store = new mongoStore({
+    db: db.connection.db,
+    collection: 'sessions'
+});
+
 var app = express();
 
 //express settings
-require('./config/express')(app, passport, db);
+require('./config/express')(app, passport, store);
 
 //Bootstrap routes
 require('./config/routes')(app, passport, auth);
@@ -54,7 +60,7 @@ var port   = process.env.PORT || config.port;
 var server = app.listen(port);
 console.log('Express app started on port ' + port);
 
-require('./config/socket.io')(server, config, db);
+require('./config/socket.io')(server, config, store);
 
 //Initializing logger
 logger.init(app, passport, mongoose);
