@@ -1,3 +1,25 @@
 <section data-ng-controller="IndexController">
-	<h1>This is the home view</h1>
+
+    <div class="row-fluid">
+        <div class="span12">
+            lol
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+
+
+            <div class="chat">
+                Les messages du chat
+                <div class="message" ng-repeat="message in messages">
+                    <span class="text" ng-bind="message.user"></span> : <span class="text" ng-bind="message.message"></span>
+                </div>
+            </div>
+
+            <input type="text" placeholder="Entrez votre message" ng-model="chatInput" ng-keypress="sendMessage($event)" />
+
+        </div>
+    </div>
+
 </section>

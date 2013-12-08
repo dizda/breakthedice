@@ -9,12 +9,12 @@ module.exports = function(server, config){
     io.of('/api').on('connection', function(socket){
 
         //Requests
-        socket.on('test/event', function(data){
-            console.log("Receive: "+data);
-        })
+        socket.on('chat:send', function(data){
+            console.log("Receive: "+ JSON.stringify(data));
+            socket.broadcast.emit('chat:receive', data);
+        });
 
         //responses
-        socket.emit('test/another/event', 'from Socket.io');
 
     });
 
