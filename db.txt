@@ -1,0 +1,79 @@
+user
+	id				hash
+	email			string
+	pass			string
+	nickname		string
+	balance			float
+	createdAt		date
+	updatedAt		date
+	activityAt		date
+	clientSeed		string			// static but can be changed
+	serverSeed		string			// dynamic
+	fees			float
+	depositAddresses[]
+	depositHistory	[]
+	withdrawHistory	[]
+	betHistory		[]
+	referrals		[]       		// not sure
+	status			int
+
+depositAddresses
+	id
+	currencyType	int (const)
+	addresse
+	createdAt
+
+
+betHistory
+	id
+	range			[]
+		- min
+		- max
+	chanceToWin		float
+	bet 			float
+	result			float
+	won				bool
+	clientSeed		string
+	serverSeed 		string
+	createdAt		date
+
+depositHistory
+	id
+	currencyType	int (const)
+	amount			float
+	fees			float
+	houseAddress	string
+	playerAddress	string
+	createdAt		date
+	status			int
+
+withdrawHistory
+	id
+	currencyType	int (const)
+	amount			float
+	fees			float
+	playerAddress	string
+	houseAddress	string
+	createdAt		date
+	status			int
+
+secretSeed
+	id
+	secret 			string
+	day				date
+
+chat
+	user			ref
+	message			string
+	createdAt		date
+
+bankroll
+	id
+	balance
+	history
+		- type
+		- amount
+		[...]
+		- createdAt
+	numberOfBets	int 	// cumulated
+	sumOfBets		float	// sum of all bets cumulated
