@@ -30,8 +30,11 @@ var ChatSchema = new Schema({
 /**
  * Statics
  */
-ChatSchema.statics = {
-
+ChatSchema.statics.load = function(id, cb) {
+    this.findOne({
+        _id: id
+    }).populate('user', 'name username').exec(cb);
 };
+
 
 mongoose.model('Chat', ChatSchema);
