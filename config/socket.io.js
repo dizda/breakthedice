@@ -3,7 +3,9 @@
  */
 
 // Good read http://stackoverflow.com/questions/8749907/what-is-a-good-session-store-for-a-single-host-node-js-production-app
-var express    = require('express');
+var express  = require('express'),
+    mongoose = require('mongoose'),
+    Chat     = mongoose.model('Chat');
 
 module.exports = function(server, config, store){
 
@@ -56,7 +58,13 @@ module.exports = function(server, config, store){
         socket.on('chat:send', function(data){
             // socket.handshake.sessionID is the session id with Passeport credentials
             //console.log('LOL MEC : '+socket.handshake.sessionID);
-            console.log('LOL MEC2 : '+user);
+
+            var chat = new Chat({
+                message: data.message,
+                user:    user
+            }).save();
+
+
             socket.broadcast.emit('chat:receive', data);
 
         });

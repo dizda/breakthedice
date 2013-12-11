@@ -22,7 +22,7 @@ var BetSchema = new Schema({
     serverSeed:  String,
     user: {
         type: Schema.ObjectId,
-        ref: 'User'
+        ref:  'User'
     },
     createdAt: {
         type: Date,
