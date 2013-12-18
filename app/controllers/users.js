@@ -51,12 +51,22 @@ exports.session = function(req, res) {
  */
 exports.create = function(req, res) {
     var user = new User(req.body);
+    var message = null;
 
     user.provider = 'local';
     user.save(function(err) {
         if (err) {
+            switch(err.code){
+                case 11000:
+                case 11001:
+                    message = 'Username already exists';
+                    break;
+                default: 
+                    message = 'Please fill all the required fields';
+            }
+
             return res.render('users/signup', {
-                errors: err.errors,
+                message: message,
                 user: user
             });
         }

@@ -12,11 +12,8 @@ block content
       a(href="/auth/google")
         img(src="/img/icons/google.png")
     .span6
-      if (typeof errors !== 'undefined')
-        .fade.in.alert.alert-block.alert-error
-          a.close(data-dismiss="alert", href="javascript:void(0)") x
-          ul
-            each error in errors
-              li= error.type
-
+      if message && message.length
+        .fade.in.alert.alert-error
+          button.close(type="button", data-dismiss="alert") &times;
+          strong #{message}
       block auth
