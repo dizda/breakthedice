@@ -1,10 +1,9 @@
 /**
  * Module dependencies.
  */
-var mongoose  = require('mongoose'),
-    Schema    = mongoose.Schema,
-    crypto    = require('crypto'),
-    _         = require('underscore'),
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    crypto = require('crypto'),
     authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 
@@ -61,8 +60,8 @@ UserSchema.virtual('password').set(function(password) {
     this.salt = this.makeSalt();
     this.hashed_password = this.encryptPassword(password);
 }).get(function() {
-    return this._password;
-});
+        return this._password;
+    });
 
 /**
  * Validations
@@ -131,7 +130,7 @@ UserSchema.methods = {
      * @api public
      */
     makeSalt: function() {
-       return crypto.randomBytes(16).toString('base64'); 
+        return crypto.randomBytes(16).toString('base64');
     },
 
     /**
