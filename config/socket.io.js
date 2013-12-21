@@ -6,7 +6,8 @@
 var express  = require('express'),
     mongoose = require('mongoose'),
     Chat     = mongoose.model('Chat'),
-    User     = mongoose.model('User');
+    User     = mongoose.model('User'),
+    Bet      = mongoose.model('Bet');
 
 module.exports = function(server, config, store){
 
@@ -86,6 +87,9 @@ module.exports = function(server, config, store){
                 }
 
                 user.addBalance(bet.amount);
+                Bet.addBet(bet.amount, user, function(err, cb) {
+                    //emit the bet to people
+                });
 
                 user.save(function(err, user) {     // if the bet is ok, we answer ack with the updated user balance
                     if (err) return new Error(err);

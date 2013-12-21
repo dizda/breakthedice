@@ -2,8 +2,9 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    config = require('../../config/config'),
-    Schema = mongoose.Schema;
+    config   = require('../../config/config'),
+    Schema   = mongoose.Schema,
+    Big      = require('../../node_modules/big.js/big');
 
 
 /**
@@ -40,5 +41,13 @@ BetSchema.statics.load = function(id, cb) {
     }).populate('user', 'name username').exec(cb);
 };
 
+BetSchema.statics.addBet = function(amount, user, callback) {
+    var bet = new this();
+
+    bet.bet  = new Big(amount).toFixed(8);
+    bet.user = user;
+
+    bet.save(callback);
+};
 
 mongoose.model('Bet', BetSchema);
