@@ -1,10 +1,11 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    crypto = require('crypto'),
-    authTypes = ['github', 'twitter', 'facebook', 'google'];
+var mongoose  = require('mongoose'),
+    Schema    = mongoose.Schema,
+    crypto    = require('crypto'),
+    authTypes = ['github', 'twitter', 'facebook', 'google'],
+    Big       = require('../../node_modules/big.js/big');    // convert number into decimal arithmetic precision
 
 
 /**
@@ -144,6 +145,14 @@ UserSchema.methods = {
         if (!password || !this.salt) return '';
         salt = new Buffer(this.salt, 'base64');
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+    },
+
+    addBalance: function(amount) {
+        this.balance = new Big(this.balance).plus(amount).toFixed(8);
+    },
+
+    subBalance: function(amount) {
+        this.balance = new Big(this.balance).minus(amount).toFixed(8);
     }
 };
 

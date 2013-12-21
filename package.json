@@ -39,7 +39,8 @@
         "grunt": "latest",
         "grunt-cli": "latest",
         "grunt-env": "latest",
-        "socket.io": "0.9.x"
+        "socket.io": "0.9.x",
+        "big.js": "2.4.x"
     },
     "devDependencies": {
         "supertest": "latest",

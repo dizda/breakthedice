@@ -85,7 +85,8 @@ module.exports = function(server, config, store){
                     return;
                 }
 
-                user.balance += parseFloat(bet.amount);
+                user.addBalance(bet.amount);
+
                 user.save(function(err, user) {     // if the bet is ok, we answer ack with the updated user balance
                     if (err) return new Error(err);
 
