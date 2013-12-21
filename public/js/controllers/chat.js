@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('IndexController', ['$scope', 'Global', '$io', function ($scope, Global, $io) {
+angular.module('mean.system').controller('ChatController', ['$scope', 'Global', '$io', function ($scope, Global, $io) {
     $scope.global = Global;
 
 

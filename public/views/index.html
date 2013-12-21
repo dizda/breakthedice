@@ -1,12 +1,16 @@
-<section data-ng-controller="IndexController">
+<section>
 
-    <div class="row-fluid">
+    <div class="row-fluid" data-ng-controller="BetController">
         <div class="span12">
-            lol
+
+            <input type="text" name="quantity" data-ng-model="amount" />
+
+            <button class="btn" type="button" data-ng-click="bet()">Play</button>
+
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid" data-ng-controller="ChatController">
         <div class="span12">
 
 

@@ -5,7 +5,8 @@
 // Good read http://stackoverflow.com/questions/8749907/what-is-a-good-session-store-for-a-single-host-node-js-production-app
 var express  = require('express'),
     mongoose = require('mongoose'),
-    Chat     = mongoose.model('Chat');
+    Chat     = mongoose.model('Chat'),
+    User     = mongoose.model('User');
 
 module.exports = function(server, config, store){
 
@@ -66,6 +67,31 @@ module.exports = function(server, config, store){
 
 
             socket.broadcast.emit('chat:receive', data);
+
+        });
+
+        socket.on('bet:play', function(bet, ack){
+
+            User.findOne({
+                _id: user
+            })
+            .exec(function(err, user) {
+                if (err) return new Error(err);
+                if (!user) return new Error('Failed to load User ' + id);
+
+                if (bet.amount > user.balance) {
+                    ack(false);
+
+                    return;
+                }
+
+                user.balance += parseFloat(bet.amount);
+                user.save(function(err, user) {     // if the bet is ok, we answer ack with the updated user balance
+                    if (err) return new Error(err);
+
+                    ack(user);
+                });
+            });
 
         });
 
