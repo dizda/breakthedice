@@ -43,6 +43,9 @@ var UserSchema = new Schema({
     withdrawHistory: [],
     betHistory: [],
 
+    depositAddress: String,
+    depositSecret: String,
+
     godfather: {
         type: Schema.Types.ObjectId,
         ref: 'User'

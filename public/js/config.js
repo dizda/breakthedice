@@ -14,6 +14,12 @@ angular.module('mean').config(['$routeProvider',
         when('/articles/:articleId', {
             templateUrl: 'views/articles/view.html'
         }).
+        when('/bank', {
+            templateUrl: 'views/bank/deposit.html'
+        }).
+        when('/bank/withdraw', {
+            templateUrl: 'views/bank/withdraw.html'
+        }).
         when('/', {
             templateUrl: 'views/index.html'
         }).

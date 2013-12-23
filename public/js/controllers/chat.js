@@ -14,6 +14,11 @@ angular.module('mean.system').controller('ChatController', ['$scope', 'Global', 
         $scope.messages.push(message);
     });
 
+    /**
+     * When we press enter to send a tchat message
+     *
+     * @param {object} event
+     */
     $scope.sendMessage = function(event)
     {
         if (event && event.keyCode != 13 || $scope.chatInput === '') {

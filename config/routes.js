@@ -70,6 +70,12 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the articleId param
     app.param('articleId', articles.article);
 
+    //Bank Routes
+    var bank = require('../app/controllers/bank');
+    app.get('/bank', auth.requiresLogin, bank.deposit);
+    app.get('/bank/withdraw', auth.requiresLogin, bank.withdraw);
+
+
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);
