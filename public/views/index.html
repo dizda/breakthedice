@@ -17,7 +17,7 @@
             <div class="chat">
                 Les messages du chat
                 <div class="message" ng-repeat="message in messages">
-                    <span class="text" ng-bind="message.user"></span> : <span class="text" ng-bind="message.message"></span>
+                    <span class="text" ng-bind="message.user.username"></span> : <span class="text" ng-bind="message.message"></span>
                 </div>
             </div>
 

@@ -5,7 +5,12 @@ angular.module('mean.system').controller('ChatController', ['$scope', 'Global', 
     $scope.messages  = [];      // list of messages
     $scope.disabled  = false;   // disable or not the text input
 
-    $io.on('chat:receive', function(message) {
+    /**
+     * When receive a message from someone
+     *
+     * @param {object} message
+     */
+    $io.on('chat:dispatch', function(message) {
         $scope.messages.push(message);
     });
 
@@ -15,14 +20,14 @@ angular.module('mean.system').controller('ChatController', ['$scope', 'Global', 
             return;
         }
 
-        var data     = {};
-        data.message = $scope.chatInput;
-        data.user    = Global.user.username;
-        data.date    = new Date();
+        var data      = {};
+        data.message  = $scope.chatInput;
+        data.date     = new Date();
 
-        $scope.messages.push(data);
+        $io.emit('chat:talk', data);                    // send to server the chat msg
 
-        $io.emit('chat:send', data);
+        data.user = {username: Global.user.username};   // add local username
+        $scope.messages.push(data);                     // add the msg to chat history
         $scope.chatInput = '';
     };
 }]);

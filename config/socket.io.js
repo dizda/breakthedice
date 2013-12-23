@@ -57,17 +57,26 @@ module.exports = function(server, config, store){
 
 
         //Requests
-        socket.on('chat:send', function(data){
+        socket.on('chat:talk', function(data){
             // socket.handshake.sessionID is the session id with Passeport credentials
             //console.log('LOL MEC : '+socket.handshake.sessionID);
 
             var chat = new Chat({
                 message: data.message,
                 user:    user
-            }).save();
+            }).save(function(e, msg) {
 
+                User.findOne(user, function(err, doc) {                 // retrieve the username of the message
+                    msg = msg.toObject();
+                    msg.user = {
+                        id:       doc._id,
+                        username: doc.username
+                    };
+                    socket.broadcast.emit('chat:dispatch', msg);       // transmit the message to other players
 
-            socket.broadcast.emit('chat:receive', data);
+                });
+
+            });
 
         });
 
