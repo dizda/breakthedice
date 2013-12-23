@@ -87,15 +87,22 @@ module.exports = function(server, config, store){
                 }
 
                 user.addBalance(bet.amount);
-                Bet.addBet(bet.amount, user, function(err, cb) {
-                    //emit the bet to people
-                });
-
-                user.save(function(err, user) {     // if the bet is ok, we answer ack with the updated user balance
+                Bet.addBet(bet.amount, user, function(err, game) {
                     if (err) return new Error(err);
 
-                    ack(user);
+                    socket.broadcast.emit('bet:played', game); // transmit to other player the bet to add it to their history
+
+                    user.save(function(err, user) {            // if the bet is ok, we answer ack with the updated user balance
+                        if (err) return new Error(err);
+
+                        var data = {
+                            user: user,
+                            bet:  game
+                        };
+                        ack(data);
+                    });
                 });
+
             });
 
         });

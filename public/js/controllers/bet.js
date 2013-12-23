@@ -6,7 +6,7 @@ angular.module('mean.system').controller('BetController', ['$scope', 'Global', '
      * When a game is played, we add it to livestream history
      */
     $io.on('bet:played', function(game) {
-        $scope.messages.push(game);
+        addBetHistory(game);
     });
 
 
@@ -32,7 +32,20 @@ angular.module('mean.system').controller('BetController', ['$scope', 'Global', '
             }
 
             //$scope.amount = null;
-            Global.user = ack;        // ack contain new user balance
+            Global.user = ack.user;        // ack contain new user balance
+            addBetHistory(ack.bet);     // add bet to history
+            console.log(ack.bet);
+
         });
+    };
+
+    var addBetHistory = function(bet)
+    {
+        var arr = $scope.bets;
+
+        if (arr.length > 4) {
+            $scope.bets.splice(0, 1);
+        }
+        $scope.bets.push(bet);
     };
 }]);

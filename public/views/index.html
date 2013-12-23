@@ -1,6 +1,6 @@
-<section>
+<section data-ng-controller="BetController">
 
-    <div class="row-fluid" data-ng-controller="BetController">
+    <div class="row-fluid">
         <div class="span12">
 
             <input type="text" name="quantity" data-ng-model="amount" />
@@ -22,6 +22,17 @@
             </div>
 
             <input type="text" placeholder="Entrez votre message" ng-model="chatInput" ng-keypress="sendMessage($event)" />
+
+        </div>
+    </div>
+
+    <h2>Les dernières parties</h2>
+    <div class="row-fluid">
+        <div class="span12">
+
+            <div data-ng-repeat="bet in bets | orderBy:'createdAt':true">
+                {{bet.user}} {{bet.bet}}
+            </div>
 
         </div>
     </div>

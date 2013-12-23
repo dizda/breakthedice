@@ -47,7 +47,9 @@ BetSchema.statics.addBet = function(amount, user, callback) {
     bet.bet  = new Big(amount).toFixed(8);
     bet.user = user;
 
-    bet.save(callback);
+    bet.save(function(err, game) {
+        callback(err, game);
+    });
 };
 
 mongoose.model('Bet', BetSchema);
