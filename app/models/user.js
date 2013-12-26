@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Module dependencies.
  */
@@ -146,7 +148,7 @@ UserSchema.methods = {
      */
     encryptPassword: function(password) {
         if (!password || !this.salt) return '';
-        salt = new Buffer(this.salt, 'base64');
+        var salt = new Buffer(this.salt, 'base64');
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
     },
 

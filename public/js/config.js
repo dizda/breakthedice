@@ -1,3 +1,5 @@
+'use strict';
+
 //Setting up route
 angular.module('mean').config(['$routeProvider',
     function($routeProvider) {
@@ -32,6 +34,6 @@ angular.module('mean').config(['$routeProvider',
 //Setting HTML5 Location Mode
 angular.module('mean').config(['$locationProvider',
     function($locationProvider) {
-        $locationProvider.hashPrefix("!");
+        $locationProvider.hashPrefix('!');
     }
 ]);
