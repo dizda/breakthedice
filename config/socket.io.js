@@ -1,6 +1,4 @@
-/*
- * Module dependencies
- */
+'use strict';
 
 // Good read http://stackoverflow.com/questions/8749907/what-is-a-good-session-store-for-a-single-host-node-js-production-app
 var express  = require('express'),
@@ -9,7 +7,7 @@ var express  = require('express'),
     User     = mongoose.model('User'),
     Bet      = mongoose.model('Bet');
 
-module.exports = function(server, config, store){
+module.exports = function(server, config, store) {
 
     var parseCookie = express.cookieParser('MEAN');
     var io = require('socket.io').listen(server);
@@ -118,4 +116,4 @@ module.exports = function(server, config, store){
 
     });
 
-}
+};

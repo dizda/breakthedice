@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('mean.system').controller('BankController', ['$scope', '$routeParams', '$location', 'Global', 'Bank', function ($scope, $routeParams, $location, Global, Bank) {
     $scope.global = Global;
 

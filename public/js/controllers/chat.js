@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('mean.system').controller('ChatController', ['$scope', 'Global', '$io', function ($scope, Global, $io) {
     $scope.global = Global;
 
@@ -21,7 +23,7 @@ angular.module('mean.system').controller('ChatController', ['$scope', 'Global', 
      */
     $scope.sendMessage = function(event)
     {
-        if (event && event.keyCode != 13 || $scope.chatInput === '') {
+        if (event && event.keyCode !== 13 || $scope.chatInput === '') {
             return;
         }
 

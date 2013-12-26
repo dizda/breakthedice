@@ -1,10 +1,4 @@
-/**
- * Module dependencies.
- */
-var mongoose = require('mongoose'),
-    _        = require('lodash'),
-    User     = mongoose.model('User');
-
+'use strict';
 
 /**
  * Show an article

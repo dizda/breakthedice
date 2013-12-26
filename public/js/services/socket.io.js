@@ -1,5 +1,7 @@
+'use strict';
+
 //Services for provide Socket.io support
-angular.module('mean.system').factory("$io", ['$rootScope', function($rootScope) {
+angular.module('mean.system').factory('$io', ['$rootScope', function($rootScope) {
     var socket = io.connect('/api'); //namespace
     return {
         on: function (eventName, callback) {

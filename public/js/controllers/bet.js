@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('mean.system').controller('BetController', ['$scope', 'Global', '$io', function ($scope, Global, $io) {
     $scope.amount = 0.001;
     $scope.bets   = [];
