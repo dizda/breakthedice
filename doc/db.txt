@@ -13,7 +13,7 @@ user
 	depositAddresses[]
 	depositHistory	[]
 	withdrawHistory	[]
-	betHistory		[]
+	x - betHistory	[]              // -> removed
 	referrals		[]       		// not sure
 	status			int
 

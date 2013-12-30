@@ -43,7 +43,6 @@ var UserSchema = new Schema({
 
     depositHistory: [],
     withdrawHistory: [],
-    betHistory: [],
 
     depositAddress: String,
     depositSecret: String,
